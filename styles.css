@@ -5,6 +5,9 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   font-family:
     system-ui,
@@ -15,6 +18,10 @@ body {
   line-height: 1.5;
   color: #1a1a1a;
   background: #f4f6f8;
+}
+
+main {
+  flex: 1;
 }
 
 .container {
@@ -147,4 +154,33 @@ button:disabled {
   font-size: 0.85rem;
   color: #666;
   text-align: center;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 1.25rem 1rem;
+  border-top: 1px solid #dde3ea;
+  background: #fff;
+  text-align: center;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: #1a5fb4;
+}
+
+.footer-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
 }
