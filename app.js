@@ -161,6 +161,7 @@ function triggerDownload(blob, filename) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const fileInput = document.getElementById('file-input');
+  const dropzone = document.getElementById('dropzone');
   const processBtn = document.getElementById('process-btn');
   const downloadBtn = document.getElementById('download-btn');
   const clearBtn = document.getElementById('clear-btn');
@@ -176,8 +177,35 @@ document.addEventListener('DOMContentLoaded', () => {
   let zipFilename = 'output.zip';
 
   function setStatus(message, type = 'info') {
-    statusEl.textContent = message;
-    statusEl.dataset.type = type;
+    if (message) {
+      statusEl.textContent = message;
+      statusEl.dataset.type = type;
+      statusEl.hidden = false;
+    } else {
+      statusEl.textContent = '';
+      statusEl.hidden = true;
+    }
+  }
+
+  function setDropzoneState(hasFile) {
+    dropzone.classList.toggle('has-file', hasFile);
+  }
+
+  function applySelectedFile(file) {
+    selectedFile = file || null;
+    resetResults();
+
+    if (selectedFile) {
+      fileNameEl.textContent = selectedFile.name;
+      processBtn.disabled = false;
+      setDropzoneState(true);
+      setStatus('File selezionato. Clicca "Elabora" per procedere.');
+    } else {
+      fileNameEl.textContent = '';
+      processBtn.disabled = true;
+      setDropzoneState(false);
+      setStatus('');
+    }
   }
 
   function resetResults() {
@@ -191,12 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function resetAll() {
-    selectedFile = null;
     fileInput.value = '';
-    fileNameEl.textContent = '';
-    processBtn.disabled = true;
-    resetResults();
-    setStatus('');
+    applySelectedFile(null);
   }
 
   function showResults(companyNames) {
@@ -213,18 +237,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   fileInput.addEventListener('change', () => {
-    selectedFile = fileInput.files[0] || null;
-    resetResults();
+    applySelectedFile(fileInput.files[0] || null);
+  });
 
-    if (selectedFile) {
-      fileNameEl.textContent = selectedFile.name;
-      processBtn.disabled = false;
-      setStatus('File selezionato. Clicca "Elabora" per procedere.');
-    } else {
-      fileNameEl.textContent = '';
-      processBtn.disabled = true;
-      setStatus('');
+  ['dragenter', 'dragover'].forEach((eventName) => {
+    dropzone.addEventListener(eventName, (event) => {
+      event.preventDefault();
+      dropzone.classList.add('is-dragover');
+    });
+  });
+
+  ['dragleave', 'drop'].forEach((eventName) => {
+    dropzone.addEventListener(eventName, () => {
+      dropzone.classList.remove('is-dragover');
+    });
+  });
+
+  dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) {
+      return;
     }
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    fileInput.files = dataTransfer.files;
+    applySelectedFile(file);
   });
 
   processBtn.addEventListener('click', async () => {
@@ -233,10 +272,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     processBtn.disabled = true;
+    processBtn.classList.add('is-loading');
     downloadBtn.hidden = true;
     clearBtn.hidden = true;
     resultsEl.hidden = true;
-    setStatus('Elaborazione in corso…');
+    setStatus('Elaborazione in corso…', 'loading');
 
     try {
       const xmlText = await selectedFile.text();
@@ -252,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
       resetResults();
       setStatus(err.message || "Errore durante l'elaborazione.", 'error');
     } finally {
+      processBtn.classList.remove('is-loading');
       processBtn.disabled = !selectedFile;
     }
   });
