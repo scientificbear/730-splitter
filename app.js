@@ -142,7 +142,7 @@ function basenameWithoutExt(filename) {
   return dot > 0 ? base.slice(0, dot) : base;
 }
 
-async function buildZip(files, zipName) {
+async function buildZip(files) {
   const zip = new JSZip();
   for (const [name, content] of files) {
     zip.file(name, content);
@@ -243,14 +243,14 @@ document.addEventListener('DOMContentLoaded', () => {
       resultFiles = splitRelFile(xmlText);
       zipFilename = `${basenameWithoutExt(selectedFile.name)}_output.zip`;
 
-      zipBlob = await buildZip(resultFiles, zipFilename);
+      zipBlob = await buildZip(resultFiles);
       downloadBtn.hidden = false;
       clearBtn.hidden = false;
       showResults([...resultFiles.keys()].map((filename) => filename.replace(/\.rel$/, '')));
       setStatus('');
     } catch (err) {
       resetResults();
-      setStatus(err.message || 'Errore durante l\'elaborazione.', 'error');
+      setStatus(err.message || "Errore durante l'elaborazione.", 'error');
     } finally {
       processBtn.disabled = !selectedFile;
     }

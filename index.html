@@ -1,41 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>730 XML Splitter</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <header>
-      <h1>730 XML Splitter</h1>
-      <p class="subtitle">Suddivide un file fornitura 730-4 (.rel) in un file per ogni sostituto d'imposta.</p>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>730 XML Splitter</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>730 XML Splitter</h1>
+        <p class="subtitle">
+          Suddivide un file fornitura 730-4 (.rel) in un file per ogni sostituto d'imposta.
+        </p>
+      </header>
 
-    <section class="card">
-      <label class="file-label" for="file-input">Seleziona file .rel</label>
-      <input type="file" id="file-input" accept=".rel,.xml" />
-      <p id="file-name" class="file-name" aria-live="polite"></p>
+      <section class="card">
+        <label class="file-label" for="file-input">Seleziona file .rel</label>
+        <input type="file" id="file-input" accept=".rel,.xml" />
+        <p id="file-name" class="file-name" aria-live="polite"></p>
 
-      <div class="actions">
-        <button type="button" id="process-btn" disabled>Elabora</button>
-        <button type="button" id="download-btn" hidden>Scarica ZIP</button>
-        <button type="button" id="clear-btn" class="btn-secondary" hidden>Nuovo file</button>
-      </div>
+        <div class="actions">
+          <button type="button" id="process-btn" disabled>Elabora</button>
+          <button type="button" id="download-btn" hidden>Scarica ZIP</button>
+          <button type="button" id="clear-btn" class="btn-secondary" hidden>Nuovo file</button>
+        </div>
 
-      <div id="results" class="results" hidden>
-        <p id="results-heading" class="results-heading"></p>
-        <ul id="results-list" class="results-list"></ul>
-      </div>
+        <div id="results" class="results" hidden>
+          <p id="results-heading" class="results-heading"></p>
+          <ul id="results-list" class="results-list"></ul>
+        </div>
 
-      <p id="status" class="status" aria-live="polite"></p>
-    </section>
+        <p id="status" class="status" aria-live="polite"></p>
+      </section>
 
-    <p class="privacy">Il file resta sul tuo dispositivo; nulla viene inviato al server.</p>
-  </main>
+      <p class="privacy">Il file resta sul tuo dispositivo; nulla viene inviato al server.</p>
+    </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-  <script src="app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
