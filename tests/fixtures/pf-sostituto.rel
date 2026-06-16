@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<m730:Fornitura730-4 xmlns:m730="urn:www.agenziaentrate.gov.it:specificheTecniche:sco:730">
+  <m730:Intestazione>
+    <m730:CodiceFornitura>TEST02</m730:CodiceFornitura>
+    <m730:TotaleDocumenti>1</m730:TotaleDocumenti>
+  </m730:Intestazione>
+  <m730:Documento_730-4>
+    <m730:Sostituto>
+      <m730:CodiceFiscale>00000000099</m730:CodiceFiscale>
+      <m730:DatiAnagraficiPF>
+        <m730:Cognome>ROSSI</m730:Cognome>
+      </m730:DatiAnagraficiPF>
+    </m730:Sostituto>
+  </m730:Documento_730-4>
+</m730:Fornitura730-4>
