@@ -35,16 +35,16 @@ Errors (invalid XML, wrong format, no sostituti found) are surfaced in the UI wi
 
 ## Code layout
 
-| Path | Role |
-|------|------|
-| `index.html` | Page structure, Italian copy, file input and action buttons |
-| `app.js` | Core splitting logic (`splitRelFile`) and DOM event wiring |
-| `styles.css` | Layout and styling |
-| `tests/fixtures/` | Minimal sample `.rel` files for automated tests |
-| `tests/split-rel.test.mjs` | Unit tests for splitting, naming, and error cases |
-| `tests/setup-dom.mjs` | Loads `app.js` in Node by polyfilling DOM APIs with `@xmldom/xmldom` |
+| Path                         | Role                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `index.html`                 | Page structure, Italian copy, file input and action buttons               |
+| `app.js`                     | Core splitting logic (`splitRelFile`) and DOM event wiring                |
+| `styles.css`                 | Layout and styling                                                        |
+| `tests/fixtures/`            | Minimal sample `.rel` files for automated tests                           |
+| `tests/split-rel.test.mjs`   | Unit tests for splitting, naming, and error cases                         |
+| `tests/setup-dom.mjs`        | Loads `app.js` in Node by polyfilling DOM APIs with `@xmldom/xmldom`      |
 | `scripts/validate-local.mjs` | Optional local regression against real files in `test_data/` (gitignored) |
-| `eslint.config.mjs` | ESLint flat config (browser globals for `app.js`, Node for tests/scripts) |
+| `eslint.config.mjs`          | ESLint flat config (browser globals for `app.js`, Node for tests/scripts) |
 
 `app.js` exports its core functions when required from Node (`module.exports`), so the same implementation is tested headlessly and runs in the browser without a build step.
 
